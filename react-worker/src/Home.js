@@ -3,6 +3,8 @@ import ReactCountdownClock from "react-countdown-clock";
 import worker from "./worker.js";
 import WebWorker from "./workerSetup";
 import Clusterize from 'react-clusterize';
+import { Button, Modal } from 'antd';
+import 'antd/dist/antd.css';
 import "./App.css";
 
 class Home extends Component {
@@ -10,7 +12,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      count: 0
+      count: 0,
+      visible: false
     };
   }
 
@@ -53,9 +56,11 @@ class Home extends Component {
     console.log('this.worker',this.worker)
   };
 
-  calmaxRow = () => {
-
-  }
+  showModal = (val) => {
+    this.setState({
+      visible: val,
+    });
+  };
   render() {
 const rows = [];
 const maxRows = 10000;
@@ -70,6 +75,22 @@ for (let i = 0; i < maxRows; ++i) {
     console.log('rows.length', rows.length)
     return (
       <div className="App-bottom">
+  <Button type="primary" onClick={() => this.showModal(true)}>
+          Open Modal
+  </Button>
+  <Modal
+    className = 'test-modal-data'
+    title="Basic Modal"
+    visible={this.state.visible}
+    onOk={this.handleOk} 
+    onOk={() => this.showModal(false)}
+    onCancel={() => this.showModal(false)}
+  >
+     <Clusterize rows={rows} scrollTop={5}/>
+  </Modal>
+<section className="App-table-bottom" style={{height: '350px'}}>
+  <Clusterize rows={rows} scrollTop={5}/>
+</section>
         <section className="App-left">
           <ReactCountdownClock
             seconds={100}
@@ -95,9 +116,6 @@ for (let i = 0; i < maxRows; ++i) {
             Fetch Users with Web Worker
           </button>
         </section>
-
-<Clusterize rows={rows} scrollTop={5}/>
-
       </div>
     );
   }
