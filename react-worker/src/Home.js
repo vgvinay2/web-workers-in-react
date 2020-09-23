@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactCountdownClock from "react-countdown-clock";
 import worker from "./worker.js";
 import WebWorker from "./workerSetup";
+import Clusterize from 'react-clusterize';
 import "./App.css";
 
 class Home extends Component {
@@ -49,9 +50,24 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.worker = new WebWorker(worker);
+    console.log('this.worker',this.worker)
   };
 
+  calmaxRow = () => {
+
+  }
   render() {
+const rows = [];
+const maxRows = 10000;
+for (let i = 0; i < maxRows; ++i) {
+    rows[i] = (
+        <div style={{ borderBottom: '1px solid #f0f0f0', padding: '5px 10px' }}>
+            Item #{i + 1}
+        </div>
+    );
+}
+    rows.length = maxRows;
+    console.log('rows.length', rows.length)
     return (
       <div className="App-bottom">
         <section className="App-left">
@@ -79,6 +95,9 @@ class Home extends Component {
             Fetch Users with Web Worker
           </button>
         </section>
+
+<Clusterize rows={rows} scrollTop={5}/>
+
       </div>
     );
   }

@@ -4,9 +4,10 @@
   "private": true,
   "dependencies": {
     "faker": "^4.1.0",
-    "react": "^16.4.1",
+    "react": "^16.13.1",
+    "react-clusterize": "^0.2.2",
     "react-countdown-clock": "^2.4.0",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.13.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
